@@ -1,0 +1,18 @@
+Model + template View
+=> View đầy đủ
+@Controller
+
+Rest full api
+FE - BE
+Template view gọi đến Api của BE để lấy data
+BE nó chỉ trả ra data 
+@RestController
+
+4 layer dự án
+Filter - bảo mật
+Controller validate input
+-> Service thực hiện những logic phức tạp
+-> Gọi Dao/repository để lấy data CRUD đến db
+
+Spring AoP
+-> @Service tác động đến tất cả những thằng service

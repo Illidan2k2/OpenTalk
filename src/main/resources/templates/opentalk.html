@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Opentalk invitation letter</title>
+</head>
+<body>
+<h2>
+    Host by
+    <th:block th:each="user : ${opentalk.users}">
+        <span th:text="${user.username}"></span>,
+    </th:block><br>
+    Invitation Opentalk Online: <a th:text="${opentalk.topic}"></a><br>
+    When: <b th:text="${opentalk.date}"></b><br>
+    Branch: <b th:text="${opentalk.branch.name}"></b><br>
+    Link meeting: <b th:text="${opentalk.link}"></b>
+</h2>
+</body>
+</html>
