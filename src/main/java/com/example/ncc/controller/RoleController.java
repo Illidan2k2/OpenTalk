@@ -46,8 +46,13 @@ public class RoleController {
 
     @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/view_user_by_role/{id}")
-    public ResponseEntity<Page<UserDto>> ViewUserByRole(@PathVariable int id, Pageable pageable){
-        return ResponseEntity.ok().body(roleService.ViewUserByRole(id,pageable));
+    public ResponseEntity<Page<UserDto>> ViewUserByRole(@PathVariable int id, Pageable pageable) {
+        return ResponseEntity.ok().body(roleService.ViewUserByRole(id, pageable));
+    }
+
+    @GetMapping("/find_roleByName")
+    public ResponseEntity<RoleDto> findRoleByIdAndName(@RequestParam(required = false) String name) {
+        return ResponseEntity.ok().body(roleService.findRoleDtoByName(name));
     }
 
 }

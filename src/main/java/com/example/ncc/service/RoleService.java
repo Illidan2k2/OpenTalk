@@ -54,4 +54,8 @@ public class RoleService {
         }
         return userRepository.findByRole(role.get(),pageable).map(mapper::userDto);
     }
+
+    public RoleDto findRoleDtoByName(String name){
+        return roleRepository.findRoleDtoByName(name);
+    }
 }

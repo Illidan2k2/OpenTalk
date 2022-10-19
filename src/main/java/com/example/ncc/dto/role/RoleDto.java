@@ -14,4 +14,9 @@ public class RoleDto {
     @JsonProperty
     @NotNull
     private String name;
+
+    public RoleDto(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
 }

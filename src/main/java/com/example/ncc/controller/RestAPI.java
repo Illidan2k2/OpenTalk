@@ -47,7 +47,6 @@ public class RestAPI {
             throw new Exception("INVALID_CREDENTIALS", e);
         }
     }
-
     @GetMapping("/logout")
     public void logout() {
         SecurityContextHolder.getContext().setAuthentication(null);

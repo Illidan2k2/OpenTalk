@@ -39,4 +39,5 @@ public interface OpentalkRepository extends JpaRepository<Opentalk, Integer> {
     List<Opentalk> getOpentalkInSelectedDate(@Param("id") Integer id,
                                              @Param("startDate") LocalDate startDate,
                                              @Param("endDate") LocalDate endDate);
+
 }
