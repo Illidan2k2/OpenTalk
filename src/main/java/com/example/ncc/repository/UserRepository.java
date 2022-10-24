@@ -35,12 +35,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "and (u.status = 'ENABLED') " +
             "and (:branch = '' or u.branch.name = :branch)" +
             "and (CAST(o.date AS LocalDate) >= :startDate AND CAST(o.date AS LocalDate) <= :endDate) ")
-    List<User> getUnregisteredUser(@Param("username") String username,
+    List<User> getEnabledUser(@Param("username") String username,
                                    @Param("branch") String branch,
                                    @Param("startDate") LocalDate startDate,
                                    @Param("endDate") LocalDate endDate);
 
-    @Query("SELECT DISTINCT u from User u JOIN u.opentalks o WHERE (u.status = 'ENABLED') " +
-            "and (CAST(o.date AS LocalDate) >= :startDate AND CAST(o.date AS LocalDate) <= :endDate) ")
-    List<User> getUnregisteredUserByDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
+    @Query("SELECT DISTINCT u from User u JOIN u.opentalks o WHERE (u.status = 'ENABLED') and" +
+            "(CAST(o.date AS LocalDate) >= :startDate AND CAST(o.date AS LocalDate) <= :endDate) ")
+    List<User> getEnabledUserByDate(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate);
 }

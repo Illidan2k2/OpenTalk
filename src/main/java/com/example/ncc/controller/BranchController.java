@@ -27,6 +27,14 @@ public class BranchController {
     public ResponseEntity<Page<BranchDto>> viewBranch(@RequestParam int page, @RequestParam int size) {
         return ResponseEntity.ok().body(branchService.viewAllBranchDTO(PageRequest.of(page,size)));
     }
+    @PreAuthorize("hasAuthority('admin')")
+    @GetMapping("/view_branch_byIdAndName")
+    public ResponseEntity<Page<BranchDto>> viewBranchByIdAndName(@RequestParam(required = false) Integer id,
+                                                                 @RequestParam(required = false) String name,
+                                                                 @RequestParam int page,
+                                                                 @RequestParam int size) {
+        return ResponseEntity.ok().body(branchService.viewBranchByIdAndName(id,name,PageRequest.of(page, size)));
+    }
 
     @PreAuthorize("hasAuthority('admin')")
     @PostMapping("/update_branch")

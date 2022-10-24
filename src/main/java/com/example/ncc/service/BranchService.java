@@ -27,6 +27,10 @@ public class BranchService {
         return branchRepository.findAll(pageable).map(mapper::branchDto);
     }
 
+    public Page<BranchDto> viewBranchByIdAndName(Integer id, String name,Pageable pageable){
+        return branchRepository.getBranchByIdOrName(id,name,pageable).map(mapper::branchDto);
+    }
+
     public BranchDto updateBranch(BranchDto branchDto) {
         Branch branch = branchRepository.findById(branchDto.getId())
                 .orElseThrow(() -> {

@@ -57,4 +57,5 @@ public class Config {
 
         return mailSender;
     }
+
 }

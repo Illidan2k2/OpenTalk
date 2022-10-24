@@ -31,7 +31,7 @@ public class InviteOpentalkLetter {
     private final TemplateEngine templateEngine;
 
     // second - minute - hour - day of month - month - days(s) of week
-    @Scheduled(cron = "0 32 17 * * TUE")
+    @Scheduled(cron = "0 45 18 * * WED")
     public void sendEmailInvitationOpentalk() throws MessagingException {
         sendEmail();
     }

@@ -99,4 +99,5 @@ public class UserController {
         UserOpentalkDto userOpentalkDto = userService.opentalkRandomDial(startDate,endDate);
         return ResponseEntity.ok().body(userOpentalkDto);
     }
+
 }

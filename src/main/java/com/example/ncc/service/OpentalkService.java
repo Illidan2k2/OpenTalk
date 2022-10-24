@@ -29,7 +29,6 @@ public class OpentalkService {
     private final UserRepository userRepository;
     private final BranchRepository branchRepository;
     private final MapStructMapper mapper;
-    private LocalDateTime dateTime = LocalDateTime.now();
 
     public Opentalk addOpentalk(OpentalkDto opentalkDto) {
         Branch branch = branchRepository.findById(opentalkDto.getBranchDTO().getId())
@@ -60,13 +59,13 @@ public class OpentalkService {
     }
 
     public Page<OpentalkDto> getUpcomingOpentalk(String branch, String username, Status status, Pageable pageable){
+        LocalDateTime dateTime = LocalDateTime.now();
         branch = branch !=null? branch : "";
         username = username != null? username : "";
         List<OpentalkDto> nextOpentalks = opentalkRepository.getUpcomingOpentalk(branch,username,status)
                 .stream()
                 .filter(opentalk -> opentalk.getDate().isAfter(dateTime))
                 .map(mapper::opentalkDto)
-                .sorted(Comparator.comparing(OpentalkDto::getDate))
                 .toList();
         final int start = (int)pageable.getOffset();
         final int end = Math.min((start + pageable.getPageSize()), nextOpentalks.size());
@@ -77,13 +76,13 @@ public class OpentalkService {
     public Page<OpentalkDto> getPreviousOpentalk(LocalDate startDate, LocalDate endDate,
                                                  String branch, String username,
                                                  Status status, Pageable pageable){
+        LocalDateTime dateTime = LocalDateTime.now();
         branch = branch !=null? branch : "";
         username = username != null? username : "";
         List<OpentalkDto> nextOpentalks = opentalkRepository.getPreviousOpentalk(branch,username,status,startDate,endDate)
                 .stream()
                 .filter(opentalk -> opentalk.getDate().isBefore(dateTime))
                 .map(mapper::opentalkDto)
-                .sorted(Comparator.comparing(OpentalkDto::getDate).reversed())
                 .toList();
         final int start = (int)pageable.getOffset();
         final int end = Math.min((start + pageable.getPageSize()), nextOpentalks.size());

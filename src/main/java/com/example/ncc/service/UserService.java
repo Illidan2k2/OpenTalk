@@ -164,10 +164,10 @@ public class UserService implements UserDetailsService {
     public Page<UserOpentalkDto> getUnregisteredUser(String username, String branch,
                                                      LocalDate startDate, LocalDate endDate,
                                                      Pageable pageable) {
-        List<UserOpentalkDto> registeredUsers = userRepository.getUnregisteredUser(username, branch, startDate, endDate)
+        List<UserOpentalkDto> registeredUsers = userRepository.getEnabledUser(username, branch, startDate, endDate)
                 .stream()
                 .map(mapper::userOpentalkDto)
-                .filter(userOpentalkDto -> userOpentalkDto.getOpentalkDtos().size() >= 1)
+                .filter(userOpentalkDto -> userOpentalkDto.getOpentalkDtos().size() >=1)
                 .toList();
         List<UserOpentalkDto> unregisteredUsers = new ArrayList<>(userRepository.findAll()
                 .stream()
@@ -182,10 +182,10 @@ public class UserService implements UserDetailsService {
     }
 
     public UserOpentalkDto opentalkRandomDial(LocalDate startDate, LocalDate endDate) {
-        List<UserOpentalkDto> registeredUsers = userRepository.getUnregisteredUserByDate(startDate, endDate)
+        List<UserOpentalkDto> registeredUsers = userRepository.getEnabledUserByDate(startDate, endDate)
                 .stream()
                 .map(mapper::userOpentalkDto)
-                .filter(userOpentalkDto -> userOpentalkDto.getOpentalkDtos().size() >= 1)
+                //.filter(userOpentalkDto -> userOpentalkDto.getOpentalkDtos().size() >= 1)
                 .toList();
         List<UserOpentalkDto> unregisteredUsers = new ArrayList<>(userRepository.findAll()
                 .stream()
@@ -206,7 +206,6 @@ public class UserService implements UserDetailsService {
             else{
                 return leastJoinedUsers.stream().findAny().get();
             }
-
         }
         return unregisteredUsers.get(new Random().nextInt(unregisteredUsers.size()));
     }

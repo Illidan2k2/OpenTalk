@@ -22,13 +22,6 @@ public class Branch {
     @OneToMany(mappedBy = "branch",cascade = CascadeType.ALL)
     private Set<Opentalk> opentalks = new HashSet<>();
 
-    /*public BranchDto convertToDTO(){
-        BranchDto branchDTO = new BranchDto();
-        branchDTO.setId(this.id);
-        branchDTO.setName(this.name);
-        return branchDTO;
-    }*/
-
     @Override
     public String toString() {
         return "Branch{" +
