@@ -41,6 +41,9 @@ public class User implements Serializable {
     @Enumerated(EnumType.STRING)
     private Status status;
 
+    @OneToMany(mappedBy = "sender",cascade = CascadeType.ALL)
+    private Set<Mail> sent_mails;
+
     @ManyToOne
     @JoinColumn(name = "user_role", nullable = false)
     private Role role;
@@ -51,6 +54,9 @@ public class User implements Serializable {
 
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "users")
     private Set<Opentalk> opentalks = new HashSet<>();
+
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "receivers")
+    private Set<Mail> received_mails = new HashSet<>();
 
     @Override
     public String toString() {

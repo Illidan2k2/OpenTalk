@@ -15,13 +15,12 @@ public interface OpentalkRepository extends JpaRepository<Opentalk, Integer> {
     @Query("SELECT DISTINCT o FROM Opentalk o JOIN o.users u WHERE (:status is null or u.status = :status) and " +
             "(:branch = '' or o.branch.name like :branch) and " +
             "(:username = '' or u.username like :username) and " +
-            "(CAST(o.date AS LocalDate) >= :startDate AND CAST(o.date AS LocalDate) <= :endDate) " +
+            "(CAST(o.date AS LocalDate) >= :startDate AND CAST(o.date AS LocalDate) <= CURRENT_DATE) " +
             "ORDER BY o.date DESC")
     List<Opentalk> getPreviousOpentalk(@Param("branch") String branch,
                                       @Param("username") String username,
                                       @Param("status") Status status,
-                                      @Param("startDate") LocalDate startDate,
-                                      @Param("endDate") LocalDate endDate);
+                                      @Param("startDate") LocalDate startDate);
     @Query("SELECT DISTINCT o FROM Opentalk o JOIN o.users u WHERE (:status is null or u.status = :status) and " +
             "(:branch = '' or o.branch.name like :branch) and " +
             "(:username = '' or u.username like :username)" +

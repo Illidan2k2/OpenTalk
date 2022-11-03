@@ -102,7 +102,7 @@ public class UserControllerTest {
     @Test
     @WithMockUser(username = "admin", password = "12345", roles = "ADMIN")
     public void testFindUser() throws Exception {
-        Mockito.when(userService.findByIdAndName(3, "Long Dep Trai")).thenReturn(user);
+        Mockito.when(userService.findByIdAndName(3, "Long Dep Trai").thenReturn(user);
         mockMvc.perform(get("/find_user")
                         .param("id", String.valueOf(3))
                         .param("name", "Long Dep Trai"))

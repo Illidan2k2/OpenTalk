@@ -1,7 +1,6 @@
 package com.example.ncc.security;
 
 import com.example.ncc.security.jwt.JwtAuthenticationFilter;
-import com.example.ncc.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,7 +19,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class NCC_Config extends WebSecurityConfigurerAdapter {
     private final PasswordEncoder passwordEncoder;
-    private final UserService userService;
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
@@ -34,9 +32,8 @@ public class NCC_Config extends WebSecurityConfigurerAdapter {
                 .csrf()
                 .disable()
                 .authorizeRequests()
-                .antMatchers("/api/login").permitAll()
-                .antMatchers("/api/logout").permitAll()
-                .antMatchers("/upload_file").hasAnyAuthority("admin", "employee")
+                .antMatchers("/mail/**").hasAnyAuthority("admin", "staff","user")
+                .antMatchers("/upload_file").hasAnyAuthority("admin", "staff","user")
                 .antMatchers(HttpMethod.GET, "/api/**").authenticated();
 
         http.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);

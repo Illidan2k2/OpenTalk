@@ -17,16 +17,21 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findUserByUsername(String username);
+
     // Native query
     @Query("SELECT u FROM User u WHERE u.id = :id AND u.username = :username")
     User findByIdAndName(@Param("id") int id, @Param("username") String username);
+
+    @Query("SELECT u from User u WHERE u.email =:email")
+    Optional<User> findByEmail(@Param("email") String email);
 
     @Query("SELECT u FROM User u WHERE u.role =:role")
     Page<User> findByRole(@Param("role") Role role, Pageable pageable);
 
     @Query("SELECT DISTINCT u from User u WHERE (:username = '' or u.username = :username) " +
             "and (:status IS NULL or u.status = :status) " +
-            "and (:branch = '' or u.branch.name = :branch)")
+            "and (:branch = '' or u.branch.name = :branch)" +
+            "ORDER BY u.id ASC")
     List<User> getUserByParam(@Param("username") String username,
                               @Param("status") Status status,
                               @Param("branch") String branch);
@@ -36,9 +41,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
             "and (:branch = '' or u.branch.name = :branch)" +
             "and (CAST(o.date AS LocalDate) >= :startDate AND CAST(o.date AS LocalDate) <= :endDate) ")
     List<User> getEnabledUser(@Param("username") String username,
-                                   @Param("branch") String branch,
-                                   @Param("startDate") LocalDate startDate,
-                                   @Param("endDate") LocalDate endDate);
+                              @Param("branch") String branch,
+                              @Param("startDate") LocalDate startDate,
+                              @Param("endDate") LocalDate endDate);
 
     @Query("SELECT DISTINCT u from User u JOIN u.opentalks o WHERE (u.status = 'ENABLED') and" +
             "(CAST(o.date AS LocalDate) >= :startDate AND CAST(o.date AS LocalDate) <= :endDate) ")

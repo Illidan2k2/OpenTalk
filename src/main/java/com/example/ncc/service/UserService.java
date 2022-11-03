@@ -140,8 +140,8 @@ public class UserService implements UserDetailsService {
         }
     }
 
-    public User findByIdAndName(int id, String username) {
-        return userRepository.findByIdAndName(id, username);
+    public UserDto findByIdAndName(int id, String username) {
+        return mapper.userDto(userRepository.findByIdAndName(id, username));
     }
 
     public Opentalk joinOpentalk(int id) throws AuthenticateFailedException, OpenTalkNotFoundException {
@@ -169,6 +169,7 @@ public class UserService implements UserDetailsService {
                 .map(mapper::userOpentalkDto)
                 .filter(userOpentalkDto -> userOpentalkDto.getOpentalkDtos().size() >=1)
                 .toList();
+        System.out.println(registeredUsers);
         List<UserOpentalkDto> unregisteredUsers = new ArrayList<>(userRepository.findAll()
                 .stream()
                 .map(mapper::userOpentalkDto)
@@ -185,7 +186,7 @@ public class UserService implements UserDetailsService {
         List<UserOpentalkDto> registeredUsers = userRepository.getEnabledUserByDate(startDate, endDate)
                 .stream()
                 .map(mapper::userOpentalkDto)
-                //.filter(userOpentalkDto -> userOpentalkDto.getOpentalkDtos().size() >= 1)
+                .filter(userOpentalkDto -> userOpentalkDto.getOpentalkDtos().size() >= 1)
                 .toList();
         List<UserOpentalkDto> unregisteredUsers = new ArrayList<>(userRepository.findAll()
                 .stream()

@@ -1,13 +1,16 @@
 package com.example.ncc.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Set;
 
-@Data
+@Getter
+@Setter
 @Entity
+@Table(name = "roles")
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,10 +23,4 @@ public class Role {
     @OneToMany(mappedBy = "role", cascade = CascadeType.ALL)
     private Set<User> users;
 
-    /*public RoleDto convertToDTO(){
-        RoleDto roleDTO = new RoleDto();
-        roleDTO.setId(this.id);
-        roleDTO.setName(this.name);
-        return roleDTO;
-    }*/
 }

@@ -43,7 +43,7 @@ public class UserDto {
     private BranchDto branchDTO;
 
     @NotNull
-    @JsonProperty
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
 

@@ -5,6 +5,7 @@ import com.example.ncc.entity.User;
 import com.example.ncc.repository.UserRepository;
 import com.example.ncc.service.OpentalkService;
 import lombok.RequiredArgsConstructor;
+import net.javacrumbs.shedlock.spring.annotation.SchedulerLock;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -31,7 +32,9 @@ public class InviteOpentalkLetter {
     private final TemplateEngine templateEngine;
 
     // second - minute - hour - day of month - month - days(s) of week
-    @Scheduled(cron = "0 45 18 * * WED")
+    @Scheduled(cron = "0 22 16 * * THU")
+    @SchedulerLock(name = "TaskScheduler_scheduledTask",
+            lockAtLeastFor = "PT1M", lockAtMostFor = "PT14M")
     public void sendEmailInvitationOpentalk() throws MessagingException {
         sendEmail();
     }

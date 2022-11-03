@@ -3,7 +3,6 @@ package com.example.ncc.controller;
 import com.example.ncc.dto.opentalk.OpentalkDto;
 import com.example.ncc.dto.user.UserDto;
 import com.example.ncc.dto.user.UserOpentalkDto;
-import com.example.ncc.entity.User;
 import com.example.ncc.enumeration.Status;
 import com.example.ncc.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -71,7 +70,7 @@ public class UserController {
 
     @PreAuthorize("hasAuthority('admin')")
     @GetMapping("/find_user")
-    public ResponseEntity<User> findUser(@RequestParam int id, @RequestParam(name = "name") String username) {
+    public ResponseEntity<UserDto> findUser(@RequestParam int id, @RequestParam(name = "name") String username) {
         return ResponseEntity.ok().body(userService.findByIdAndName(id, username));
     }
 

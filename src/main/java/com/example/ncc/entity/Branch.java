@@ -8,6 +8,7 @@ import java.util.Set;
 
 @Data
 @Entity
+@Table(name = "branches")
 public class Branch {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

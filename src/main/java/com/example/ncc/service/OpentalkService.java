@@ -39,7 +39,6 @@ public class OpentalkService {
             Optional<User> user = userRepository.findById(id);
             user.ifPresent(users::add);
         }
-        System.out.println(users.size());
         Opentalk opentalk = mapper.opentalkDtoToOpenTalk(opentalkDto);
         opentalk.setUsers(users);
         opentalk.setBranch(branch);
@@ -73,13 +72,13 @@ public class OpentalkService {
         return page;
     }
 
-    public Page<OpentalkDto> getPreviousOpentalk(LocalDate startDate, LocalDate endDate,
+    public Page<OpentalkDto> getPreviousOpentalk(LocalDate startDate,
                                                  String branch, String username,
                                                  Status status, Pageable pageable){
         LocalDateTime dateTime = LocalDateTime.now();
         branch = branch !=null? branch : "";
         username = username != null? username : "";
-        List<OpentalkDto> nextOpentalks = opentalkRepository.getPreviousOpentalk(branch,username,status,startDate,endDate)
+        List<OpentalkDto> nextOpentalks = opentalkRepository.getPreviousOpentalk(branch,username,status,startDate)
                 .stream()
                 .filter(opentalk -> opentalk.getDate().isBefore(dateTime))
                 .map(mapper::opentalkDto)

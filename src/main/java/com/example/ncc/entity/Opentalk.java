@@ -12,6 +12,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
+@Table(name = "opentalks")
 public class Opentalk {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,24 +29,14 @@ public class Opentalk {
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
-        name = "user_opentalk_detail",
+        name = "user_opentalk_details",
         inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
         joinColumns = {@JoinColumn(name = "opentalk_id", referencedColumnName = "id")}
     )
     private Set<User> users = new HashSet<>();
 
     @ManyToOne
-    @JoinColumn(name = "branch_id",nullable = false)
+    @JoinColumn(name = "opentalk_branch",nullable = false)
     private Branch branch;
 
-    /*public OpentalkDto convertToDTO() {
-        return OpentalkDto.builder()
-                .id(this.id)
-                .topic(this.topic)
-                .date(this.date)
-                .link(this.link)
-                .branchDTO(this.branch.convertToDTO())
-                .userOpentalkDto_set(this.users.stream().map(User::convertToOpentalkDTO).collect(Collectors.toSet()))
-                .build();
-    }*/
 }

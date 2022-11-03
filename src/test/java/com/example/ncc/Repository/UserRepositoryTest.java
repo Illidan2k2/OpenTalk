@@ -114,9 +114,9 @@ public class UserRepositoryTest {
         if(opentalk.getDate().isBefore(endDate.atStartOfDay()) && opentalk.getDate().isAfter(startDate.atStartOfDay())){
             user.setOpentalks(null);
         }
-        Mockito.when(userRepository.getUnregisteredUser("Long Hoang","HN1",startDate,endDate))
+        Mockito.when(userRepository.getEnabledUser("Long Hoang","HN1",startDate,endDate))
                 .thenReturn(users);
-        assertThat(userRepository.getUnregisteredUser("Long Hoang","HN1",startDate,endDate))
+        assertThat(userRepository.getEnabledUser("Long Hoang","HN1",startDate,endDate))
                 .asList().contains(user);
         assertThat(user.getOpentalks()==null);
     }

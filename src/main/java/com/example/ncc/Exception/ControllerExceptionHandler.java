@@ -15,7 +15,6 @@ public class ControllerExceptionHandler {
     public ResponseEntity<String> openTalkNotFoundException(OpenTalkNotFoundException ex){
         return ResponseEntity.badRequest().body(ex.getMessage());
     }
-
     @ExceptionHandler(UserNotFoundException.class)
     public ResponseEntity<String> userNotFoundException(UserNotFoundException ex){
         return ResponseEntity.badRequest().body(ex.getMessage());

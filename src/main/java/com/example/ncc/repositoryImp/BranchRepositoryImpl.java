@@ -15,7 +15,7 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
-public abstract class BranchRepositoryImp implements BranchRepository {
+public abstract class BranchRepositoryImpl implements BranchRepository {
     @PersistenceContext
     private EntityManager em;
     @Override

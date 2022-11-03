@@ -79,10 +79,9 @@ public class OpentalkController {
                                                                  @RequestParam(required = false) String branch,
                                                                  @RequestParam(required = false) Status status,
                                                                  @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
-                                                                 @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
                                                                  @RequestParam int page,
                                                                  @RequestParam int size) {
-        return ResponseEntity.ok().body(opentalkService.getPreviousOpentalk(startDate, endDate, branch, username, status, PageRequest.of(page, size)));
+        return ResponseEntity.ok().body(opentalkService.getPreviousOpentalk(startDate,branch, username, status, PageRequest.of(page, size)));
     }
 
 }
