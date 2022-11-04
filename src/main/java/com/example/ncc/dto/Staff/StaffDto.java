@@ -18,4 +18,7 @@ public class StaffDto implements Serializable {
 
     @JsonProperty
     private String email;
+
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    private String password;
 }
